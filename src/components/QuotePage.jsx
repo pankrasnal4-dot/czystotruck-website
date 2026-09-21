@@ -44,6 +44,26 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
   const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  // NOTE(architektura): Porzuciliśmy sztywny estymator cenowy w JS na rzecz wyceny telefonicznej w 5 minut.
+  // W łódzkich kamienicach stare meblościanki z PRL (lite drewno, lakier wysoki połysk)
+  // potrafią ważyć 3x więcej niż meble z sieciówek i nie mieszczą się w wąskich prześwitach bramowych.
+  // Algorytm zaniżał stawki o 40% przy ciężkim gabarycie, co rodziło nieporozumienia.
+  /*
+  const [estimateRange, setEstimateRange] = useState({ min: 0, max: 0 });
+  const recalculateEstimate = () => {
+    let baseMin = selectedCategories.length * 120;
+    let baseMax = selectedCategories.length * 280;
+    if (floor.includes('kamienica') || floor.includes('3.') || floor.includes('4.')) {
+      baseMin += 80;
+      baseMax += 150;
+    }
+    setEstimateRange({ min: baseMin, max: baseMax });
+  };
+  */
+
+  // FIXME(walidacja): dodać automatyczne dzielenie spacji w numerze (np. 514 690 066)
+  // oraz rozpoznać prefiks kierunkowy 42 dla łódzkich numerów stacjonarnych.
+
   const categories = [
     { id: 'meble', label: '🛋️ Stare Meble & Gabaryty', desc: 'Kanapy, narożniki, szafy, meblościanki, łóżka' },
     { id: 'mieszkanie', label: '🏠 Całe Mieszkanie / Lokal', desc: 'Kompleksowe opróżnianie do gołych ścian' },
@@ -100,10 +120,16 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!phone || phone.length < 7) {
-      alert('Podaj poprawny numer telefonu, abyśmy mogli przekazać wycenę.');
+    
+    // Normalizacja numeru (usuwamy spacje, myślniki, nawiasy)
+    const normalizedPhone = phone.replace(/[\s\-\(\)]/g, '');
+    if (!normalizedPhone || normalizedPhone.length < 9) {
+      alert('Podaj prawidłowy numer telefonu (min. 9 cyfr), abyśmy mogli oddzwonić z wyceną.');
       return;
     }
+
+    // TODO(kamil): w Q2 dodać drag&drop zdjęć mebli bezpośrednio do formularza
+    // i wysyłkę przez multipart/form-data do bota (sendPhoto), zamiast obecnego odsyłania do WhatsApp.
 
     setIsSending(true);
 
@@ -111,7 +137,7 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
 
     const message = formatLeadMessage({
       name: name.trim() || 'Klient z podstrony /wycena',
-      phone: phone.trim(),
+      phone: normalizedPhone,
       service: selectedCategories.join(', '),
       location: fullLocation,
       floor,
