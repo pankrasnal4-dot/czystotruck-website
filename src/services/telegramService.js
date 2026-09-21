@@ -39,20 +39,31 @@ export async function sendTelegramNotification(messageText) {
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
+  // FIXME: Jeśli jeden ze wspólników nie kliknął jeszcze /start w bocie, Telegram zwraca 403 (Forbidden).
+  // Traktujemy wysyłkę jako udaną, jeśli przynajmniej jeden z odbiorców (np. grupa lub drugi wspólnik) dostał lead.
   try {
     const results = await Promise.all(
       recipientIds.map(async (targetChatId) => {
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: targetChatId,
-            text: messageText,
-            parse_mode: 'HTML',
-            disable_web_page_preview: true,
-          }),
-        });
-        return await response.json();
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: targetChatId,
+              text: messageText,
+              parse_mode: 'HTML',
+              disable_web_page_preview: true,
+            }),
+          });
+          const data = await response.json();
+          if (!data.ok) {
+            console.warn(`[TelegramService] Ostrzeżenie dla czatu ${targetChatId}:`, data.description);
+          }
+          return data;
+        } catch (fetchErr) {
+          console.warn(`[TelegramService] Błąd sieciowy dla ${targetChatId}:`, fetchErr.message);
+          return { ok: false, description: fetchErr.message };
+        }
       })
     );
 
@@ -61,7 +72,7 @@ export async function sendTelegramNotification(messageText) {
       return { success: true, results };
     } else {
       const errorDesc = results[0]?.description || 'Błąd wysyłania do Telegrama';
-      console.error('Telegram API error:', results);
+      console.error('[TelegramService] Żaden z odbiorców nie otrzymał wiadomości:', results);
       return { success: false, error: errorDesc };
     }
   } catch (err) {
