@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test test/suite.test.js"
   },
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",
