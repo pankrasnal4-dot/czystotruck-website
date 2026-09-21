@@ -1,9 +1,9 @@
 import React from 'react';
-import { Phone, MessageSquare, ArrowUpRight, ShieldCheck, Clock, MapPin, Sparkles, ArrowUp } from 'lucide-react';
+import { Phone, MessageSquare, ArrowUpRight, ShieldCheck, Clock, MapPin, Sparkles } from 'lucide-react';
 import content from '../data/content.json';
 import { sendTelegramNotification, formatCallClickMessage } from '../services/telegramService';
 
-export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) {
+export default function ContactSection({ onOpenTerms, onOpenTelegramSettings, onNavigateToQuote }) {
   const handlePhoneCallClick = () => {
     sendTelegramNotification(
       formatCallClickMessage({
@@ -11,13 +11,6 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
         source: 'Karta bezpośredniego połączenia (Dół strony)',
       })
     );
-  };
-
-  const scrollToHeroConfig = () => {
-    const heroEl = document.getElementById('hero');
-    if (heroEl) {
-      heroEl.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (
@@ -50,7 +43,7 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
               <a
                 href={`tel:${content.company.phoneRaw}`}
                 onClick={handlePhoneCallClick}
-                className="flex items-center justify-between p-5 rounded-2xl glass-panel-amber hover:border-amber-400/60 transition-all duration-300 group shadow-lg"
+                className="flex items-center justify-between p-5 rounded-2xl glass-panel-amber hover:border-amber-400/60 transition-all duration-300 group shadow-lg cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-amber-500 flex items-center justify-center text-zinc-950 shadow-md">
@@ -72,7 +65,7 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
                 href={content.company.socials.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-5 rounded-2xl glass-panel hover:border-emerald-500/40 transition-all duration-300 group shadow-lg"
+                className="flex items-center justify-between p-5 rounded-2xl glass-panel hover:border-emerald-500/40 transition-all duration-300 group shadow-lg cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
@@ -107,7 +100,7 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
             </div>
           </div>
 
-          {/* Right Column: Clean Standards & Fast Configurator Jump (No duplicate phone form!) */}
+          {/* Right Column: Clean Standards & Fast Subpage Quote Button */}
           <div className="lg:col-span-5 w-full">
             <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl relative">
               
@@ -148,15 +141,16 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
                 </div>
               </div>
 
-              {/* Fast Jump button to the main quote widget at the top */}
+              {/* Direct Link to the Quote Subpage */}
               <div className="pt-6 mt-6 border-t border-white/10">
                 <button
                   type="button"
-                  onClick={scrollToHeroConfig}
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
+                  onClick={onNavigateToQuote}
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer"
                 >
-                  <ArrowUp className="w-4 h-4 stroke-[2.5]" />
-                  <span>Skorzystaj z kalkulatora wyceny (Góra strony)</span>
+                  <Sparkles className="w-4 h-4 fill-zinc-950" />
+                  <span>Darmowy Formularz Wyceny Online (3 kroki)</span>
+                  <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                 </button>
               </div>
 
@@ -175,7 +169,7 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
           <div className="flex items-center gap-6">
             <button
               onClick={onOpenTerms}
-              className="hover:text-amber-400 transition-colors underline underline-offset-4"
+              className="hover:text-amber-400 transition-colors underline underline-offset-4 cursor-pointer"
             >
               Regulamin Usług
             </button>

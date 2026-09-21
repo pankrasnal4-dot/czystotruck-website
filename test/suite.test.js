@@ -33,37 +33,47 @@ describe('CzystoTruck Core Test Suite', () => {
     assert.ok(content.districts.includes('Widzew'));
   });
 
-  it('powinien poprawnie formatować wiadomość leada dla Telegrama', () => {
+  it('powinien poprawnie formatować wiadomość leada dla Telegrama z pełnymi danymi zlecenia', () => {
     const lead = formatLeadMessage({
-      name: 'Jan Kowalski',
-      phone: '514690066',
-      service: 'Wywóz mebli',
-      floor: '2. piętro',
-      items: 'Kanapa, Szafa',
-      description: 'Stara rogówka do zniesienia',
-      source: 'Widget Hero',
+      name: 'Tomasz Nowak',
+      phone: '514 690 066',
+      service: 'Stare Meble & Gabaryty',
+      location: 'Bałuty, ul. Limanowskiego 12',
+      floor: '3. piętro (kamienica bez windy)',
+      disassembly: 'Potrzebny demontaż na miejscu',
+      items: 'Kanapa narożna, szafa trzydrzwiowa',
+      description: 'Bardzo ciężka szafa i narożnik do rozebrania',
+      timeframe: 'Jak najszybciej (dzisiaj / jutro)',
+      source: 'Podstrona Wyceny CzystoTruck (/wycena)',
     });
 
     assert.ok(lead.includes('CZYSTOTRUCK'));
-    assert.ok(lead.includes('514690066'));
-    assert.ok(lead.includes('Kanapa, Szafa'));
-    assert.ok(lead.includes('Stara rogówka do zniesienia'));
+    assert.ok(lead.includes('Tomasz Nowak'));
+    assert.ok(lead.includes('514 690 066'));
+    assert.ok(lead.includes('href="tel:'));
+    assert.ok(lead.includes('Bałuty, ul. Limanowskiego 12'));
+    assert.ok(lead.includes('3. piętro'));
+    assert.ok(lead.includes('Potrzebny demontaż'));
+    assert.ok(lead.includes('Jak najszybciej'));
   });
 
   it('powinien poprawnie formatować alert kliknięcia w telefon', () => {
     const alert = formatCallClickMessage({
       phone: '+48 514 690 066',
-      source: 'Nagłówek',
+      source: 'Główny przycisk połączenia w sekcji Hero',
     });
 
     assert.ok(alert.includes('KLIKNIĘCIE'));
-    assert.ok(alert.includes('Nagłówek'));
+    assert.ok(alert.includes('Hero'));
   });
 
-  it('powinien posiadać plik ze zdjęciem piwnicy w src/assets', () => {
-    const imagePath = path.join(__dirname, '../src/assets/piwnica.jpg');
-    assert.ok(fs.existsSync(imagePath), 'Plik piwnica.jpg musi istnieć w src/assets');
-    const stats = fs.statSync(imagePath);
-    assert.ok(stats.size > 10000, 'Zdjęcie piwnicy nie może być puste');
+  it('powinien posiadać autentyczne zdjęcia w src/assets i public/images', () => {
+    const piwnicaPath = path.join(__dirname, '../src/assets/piwnica.jpg');
+    assert.ok(fs.existsSync(piwnicaPath), 'Plik piwnica.jpg musi istnieć w src/assets');
+    assert.ok(fs.statSync(piwnicaPath).size > 10000, 'Zdjęcie piwnicy nie może być puste');
+
+    const heroImagePath = path.join(__dirname, '../src/assets/hero-cleared.jpg');
+    assert.ok(fs.existsSync(heroImagePath), 'Plik hero-cleared.jpg musi istnieć w src/assets');
+    assert.ok(fs.statSync(heroImagePath).size > 10000, 'Zdjęcie hero nie może być puste');
   });
 });

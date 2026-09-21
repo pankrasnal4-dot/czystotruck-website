@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Truck, Phone, MessageSquare, Menu, X, ArrowUpRight, MessageCircle } from 'lucide-react';
+import { Truck, Phone, MessageSquare, Menu, X, ArrowUpRight, ArrowLeft } from 'lucide-react';
 import content from '../data/content.json';
 import { sendTelegramNotification, formatCallClickMessage } from '../services/telegramService';
 
-export default function Header({ onOpenStory, onOpenTerms, onOpenTelegramSettings }) {
+export default function Header({ 
+  onOpenStory, 
+  onOpenTerms, 
+  onOpenTelegramSettings, 
+  isQuoteView = false, 
+  onNavigateToQuote, 
+  onBackToHome 
+}) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [logoClicks, setLogoClicks] = useState(0);
@@ -20,11 +27,19 @@ export default function Header({ onOpenStory, onOpenTerms, onOpenTelegramSetting
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id) => {
+  const handleNavClick = (id) => {
     setIsMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (isQuoteView && onBackToHome) {
+      onBackToHome();
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -48,24 +63,24 @@ export default function Header({ onOpenStory, onOpenTerms, onOpenTelegramSetting
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
-          {/* Left: Quick contact & Social links */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Left: Quick contact */}
+          <div className="flex items-center gap-1.5 sm:gap-3">
             <a
               href={`tel:${content.company.phoneRaw}`}
               onClick={handleCallClick}
-              className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-xs text-zinc-300 hover:text-amber-400 transition-all duration-300"
+              className="group flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-[11px] sm:text-xs text-zinc-300 hover:text-amber-400 transition-all duration-300"
               title="Zadzwoń do nas"
             >
               <Phone className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
               <span className="hidden sm:inline font-mono tracking-wider">{content.company.phone}</span>
-              <span className="sm:hidden font-mono">Zadzwoń</span>
+              <span className="sm:hidden font-mono text-[10px]">Zadzwoń</span>
             </a>
 
             <a
               href={content.company.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 rounded-full bg-white/[0.04] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-zinc-400 hover:text-emerald-400 transition-all duration-300"
+              className="hidden md:flex p-1.5 rounded-full bg-white/[0.04] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-zinc-400 hover:text-emerald-400 transition-all duration-300"
               title="Napisz na WhatsApp"
             >
               <MessageSquare className="w-3.5 h-3.5" />
@@ -82,41 +97,56 @@ export default function Header({ onOpenStory, onOpenTerms, onOpenTelegramSetting
                 }
                 return prev + 1;
               });
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              if (isQuoteView && onBackToHome) {
+                onBackToHome();
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
             }}
-            className="flex items-center gap-2 group cursor-pointer text-left focus:outline-none"
+            className="flex items-center gap-1.5 sm:gap-2 group cursor-pointer text-left focus:outline-none"
             title="CzystoTruck Łódź"
           >
-            <div className="w-7 h-7 rounded-lg bg-zinc-900 border border-amber-500/40 flex items-center justify-center group-hover:border-amber-400 transition-colors">
-              <Truck className="w-4 h-4 text-amber-400 stroke-[2]" />
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-zinc-900 border border-amber-500/40 flex items-center justify-center group-hover:border-amber-400 transition-colors">
+              <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 stroke-[2]" />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif tracking-[0.25em] text-sm sm:text-base uppercase font-bold text-white group-hover:text-amber-300 transition-colors">
+              <span className="font-serif tracking-[0.15em] sm:tracking-[0.25em] text-xs sm:text-base uppercase font-bold text-white group-hover:text-amber-300 transition-colors">
                 {content.company.name}
               </span>
-              <span className="text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-zinc-500 font-mono -mt-0.5">
+              <span className="hidden sm:inline text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-zinc-500 font-mono -mt-0.5">
                 WYWÓZ MEBLI &bull; ŁÓDŹ
               </span>
             </div>
           </button>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <button
-              onClick={() => scrollToSection('hero')}
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300"
-            >
-              Wycena
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-            </button>
+          <div className="flex items-center gap-1.5 sm:gap-3">
+            {isQuoteView ? (
+              <button
+                onClick={onBackToHome}
+                className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs uppercase tracking-wider font-semibold bg-white/[0.08] hover:bg-white/[0.15] text-zinc-200 border border-white/15 hover:border-white/30 transition-all duration-300 cursor-pointer"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Strona Główna</span>
+                <span className="sm:hidden">Wróć</span>
+              </button>
+            ) : (
+              <button
+                onClick={onNavigateToQuote}
+                className="inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs uppercase tracking-wider font-semibold bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300 cursor-pointer"
+              >
+                <span>Wycena</span>
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+              </button>
+            )}
 
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-xs uppercase tracking-widest text-zinc-300 hover:text-white transition-all duration-300"
+              className="group flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-[11px] sm:text-xs uppercase tracking-widest text-zinc-300 hover:text-white transition-all duration-300 cursor-pointer"
               aria-label="Otwórz menu"
             >
-              <span className="hidden xs:inline text-[11px] font-mono">MENU</span>
-              <Menu className="w-4 h-4 text-amber-400 group-hover:rotate-90 transition-transform duration-300" />
+              <span className="hidden xs:inline text-[10px] sm:text-[11px] font-mono">MENU</span>
+              <Menu className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 group-hover:rotate-90 transition-transform duration-300" />
             </button>
           </div>
 
@@ -142,7 +172,7 @@ export default function Header({ onOpenStory, onOpenTerms, onOpenTelegramSetting
 
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-white transition-colors"
+            className="p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
             aria-label="Zamknij menu"
           >
             <X className="w-6 h-6" />
@@ -157,38 +187,49 @@ export default function Header({ onOpenStory, onOpenTerms, onOpenTelegramSetting
 
           <nav className="flex flex-col gap-3 sm:gap-5 font-serif text-xl sm:text-3xl text-zinc-300">
             <button
-              onClick={() => scrollToSection('hero')}
-              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                if (onNavigateToQuote) onNavigateToQuote();
+              }}
+              className="text-left text-amber-400 hover:text-amber-300 font-bold transition-colors flex items-center justify-between group cursor-pointer"
+            >
+              <span>★ Formularz Wyceny Online</span>
+              <ArrowUpRight className="w-5 h-5 opacity-100 text-amber-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </button>
+
+            <button
+              onClick={() => handleNavClick('hero')}
+              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group cursor-pointer"
             >
               <span>01. Start</span>
               <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity text-amber-400" />
             </button>
             <button
-              onClick={() => scrollToSection('jak-dzialamy')}
-              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group"
+              onClick={() => handleNavClick('jak-dzialamy')}
+              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group cursor-pointer"
             >
               <span>02. Jak Działamy (3 Kroki)</span>
               <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity text-amber-400" />
             </button>
             <button
-              onClick={() => scrollToSection('uslugi')}
-              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group"
+              onClick={() => handleNavClick('uslugi')}
+              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group cursor-pointer"
             >
               <span>03. Usługi Meblowe</span>
               <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity text-amber-400" />
             </button>
             <button
-              onClick={() => scrollToSection('kalkulator')}
-              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group"
+              onClick={() => handleNavClick('porownanie')}
+              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group cursor-pointer"
             >
-              <span>04. Kalkulator Mebli</span>
+              <span>04. Dlaczego CzystoTruck</span>
               <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity text-amber-400" />
             </button>
             <button
-              onClick={() => scrollToSection('porownanie')}
-              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group"
+              onClick={() => handleNavClick('rejony')}
+              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group cursor-pointer"
             >
-              <span>05. Dlaczego CzystoTruck</span>
+              <span>05. Dzielnice Łodzi</span>
               <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity text-amber-400" />
             </button>
             <button
@@ -196,16 +237,16 @@ export default function Header({ onOpenStory, onOpenTerms, onOpenTelegramSetting
                 setIsMobileMenuOpen(false);
                 onOpenStory();
               }}
-              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group"
+              className="text-left hover:text-amber-400 transition-colors flex items-center justify-between group cursor-pointer"
             >
               <span>06. O Nas & Flota</span>
               <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity text-amber-400" />
             </button>
             <button
-              onClick={() => scrollToSection('kontakt')}
-              className="text-left text-amber-400 hover:text-amber-300 transition-colors flex items-center justify-between group"
+              onClick={() => handleNavClick('kontakt')}
+              className="text-left text-amber-400 hover:text-amber-300 transition-colors flex items-center justify-between group cursor-pointer"
             >
-              <span>07. Wycena & Kontakt</span>
+              <span>07. Bezpośredni Kontakt</span>
               <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity text-amber-400" />
             </button>
           </nav>
@@ -224,7 +265,7 @@ export default function Header({ onOpenStory, onOpenTerms, onOpenTelegramSetting
                 setIsMobileMenuOpen(false);
                 onOpenTerms();
               }}
-              className="hover:text-amber-400 transition-colors underline underline-offset-4"
+              className="hover:text-amber-400 transition-colors underline underline-offset-4 cursor-pointer"
             >
               Regulamin Usług
             </button>

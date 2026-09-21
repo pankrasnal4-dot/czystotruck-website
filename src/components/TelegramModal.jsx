@@ -132,16 +132,22 @@ export default function TelegramModal({ isOpen, onClose }) {
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-zinc-300 tracking-wider mb-1.5">
-                Twój Chat ID (z @userinfobot):
-              </label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-mono uppercase text-zinc-300 tracking-wider">
+                  Chat ID Grupy lub Wasze ID (po przecinku):
+                </label>
+                <span className="text-[10px] font-mono text-amber-400">Dla Ciebie i Wspólnika</span>
+              </div>
               <input
                 type="text"
-                placeholder="np. 123456789"
+                placeholder="np. -100123456789 (grupa) lub 12345678, 98765432"
                 value={chatId}
                 onChange={(e) => setChatId(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-white/15 focus:border-amber-400 focus:outline-none text-white text-xs font-mono placeholder:text-zinc-600"
               />
+              <span className="text-[11px] text-zinc-400 mt-1.5 block leading-relaxed">
+                Tip: Utwórz grupę na Telegramie ze swoim wspólnikiem, dodaj do niej bota i wklej ID grupy (zaczyna się od <code>-100</code>). Powiadomienia będą trafiać do Was obu jednocześnie!
+              </span>
             </div>
           </div>
 
