@@ -102,6 +102,3 @@
   animation: marquee-glide 28s linear infinite;
 }
 
-.animate-marquee-continuous:hover {
-  animation-play-state: paused;
-}

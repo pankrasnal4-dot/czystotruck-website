@@ -7,6 +7,7 @@ import { sendTelegramNotification, formatLeadMessage, formatCallClickMessage } f
 export default function HeroSection({ isLoaded }) {
   const [selectedItems, setSelectedItems] = useState(['Kanapa / Rogówka']);
   const [selectedFloor, setSelectedFloor] = useState('Parter / Winda');
+  const [description, setDescription] = useState('');
   const [phone, setPhone] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -50,7 +51,7 @@ export default function HeroSection({ isLoaded }) {
       service: 'Szybka wycena z nagłówka (Hero)',
       floor: selectedFloor,
       items: selectedItems.join(', '),
-      description: `Klient wybrał ${selectedItems.length} pozycji z widgetu głównego`,
+      description: description.trim() || `Wybrane pozycje: ${selectedItems.join(', ')}`,
       source: 'Widget Hero (Strona WWW)',
     });
 
@@ -240,10 +241,24 @@ export default function HeroSection({ isLoaded }) {
                   </select>
                 </div>
 
-                {/* 3. Phone number */}
+                {/* 3. Client description / request */}
                 <div>
                   <label className="block text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-1.5">
-                    3. Twój numer telefonu:
+                    3. Opis zlecenia (czego potrzebujesz?):
+                  </label>
+                  <textarea
+                    rows={2}
+                    placeholder="np. Stara kanapa i szafa trzydrzwiowa, 3. piętro bez windy..."
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-white/15 focus:border-amber-400 focus:outline-none text-white text-xs font-sans placeholder:text-zinc-600 transition-colors resize-none"
+                  />
+                </div>
+
+                {/* 4. Phone number */}
+                <div>
+                  <label className="block text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-1.5">
+                    4. Twój numer telefonu:
                   </label>
                   <input
                     type="tel"
@@ -255,7 +270,7 @@ export default function HeroSection({ isLoaded }) {
                   />
                 </div>
 
-                {/* Submit button with pulsing glow */}
+                {/* Submit button */}
                 <button
                   type="submit"
                   disabled={isSending}
@@ -263,7 +278,7 @@ export default function HeroSection({ isLoaded }) {
                 >
                   <Send className="w-4 h-4 stroke-[2.5]" />
                   <span>
-                    {isSending ? 'Wysyłanie zgłoszenia...' : 'Poproś o wycenę (Oddzwaniamy w 5 min)'}
+                    {isSending ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
                   </span>
                 </button>
 

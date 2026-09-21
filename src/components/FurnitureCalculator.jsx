@@ -7,6 +7,7 @@ import { sendTelegramNotification, formatLeadMessage } from '../services/telegra
 export default function FurnitureCalculator() {
   const [selectedItems, setSelectedItems] = useState(['kanapa']);
   const [selectedFloor, setSelectedFloor] = useState(content.calculator.floors[1]);
+  const [description, setDescription] = useState('');
   const [phone, setPhone] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -40,7 +41,7 @@ export default function FurnitureCalculator() {
       service: 'Kalkulator Mebli na stronie',
       floor: selectedFloor,
       items: selectedNames,
-      description: `Wybrano ${selectedItems.length} pozycji do wywiezienia`,
+      description: description.trim() || `Wybrano ${selectedItems.length} pozycji do wywiezienia: ${selectedNames}`,
       source: 'Interaktywny Kalkulator Meblowy',
     });
 
@@ -131,8 +132,8 @@ export default function FurnitureCalculator() {
                 </div>
               </div>
 
-              {/* Floor selection */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-white/10">
+              {/* Floor, description & phone */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 border-t border-white/10">
                 <div>
                   <label className="block text-xs font-mono uppercase text-zinc-400 tracking-wider mb-2">
                     2. Piętro / Znoszenie:
@@ -152,7 +153,20 @@ export default function FurnitureCalculator() {
 
                 <div>
                   <label className="block text-xs font-mono uppercase text-zinc-400 tracking-wider mb-2">
-                    3. Twój numer telefonu do wyceny:
+                    3. Opis / Szczegóły (opcjonalnie):
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="np. kanapa, szafa 3-drzwiowa"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-white/10 text-white text-xs font-sans focus:border-amber-400 focus:outline-none placeholder:text-zinc-600"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono uppercase text-zinc-400 tracking-wider mb-2">
+                    4. Twój numer telefonu:
                   </label>
                   <input
                     type="tel"
@@ -178,7 +192,7 @@ export default function FurnitureCalculator() {
                   className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
                 >
                   <Send className="w-4 h-4 stroke-[2.5]" />
-                  <span>{isSending ? 'Wysyłanie...' : 'Wyślij do dyspozytora na Telegram'}</span>
+                  <span>{isSending ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}</span>
                 </button>
               </div>
 
