@@ -27,6 +27,17 @@ export default function Header({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   const handleNavClick = (id) => {
     setIsMobileMenuOpen(false);
     if (isQuoteView && onBackToHome) {
@@ -63,31 +74,7 @@ export default function Header({
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
-          {/* Left: Quick contact */}
-          <div className="flex items-center gap-1.5 sm:gap-3">
-            <a
-              href={`tel:${content.company.phoneRaw}`}
-              onClick={handleCallClick}
-              className="group flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-[11px] sm:text-xs text-zinc-300 hover:text-amber-400 transition-all duration-300"
-              title="Zadzwoń do nas"
-            >
-              <Phone className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
-              <span className="hidden sm:inline font-mono tracking-wider">{content.company.phone}</span>
-              <span className="sm:hidden font-mono text-[10px]">Zadzwoń</span>
-            </a>
-
-            <a
-              href={content.company.socials.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex p-1.5 rounded-full bg-white/[0.04] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-zinc-400 hover:text-emerald-400 transition-all duration-300"
-              title="Napisz na WhatsApp"
-            >
-              <MessageSquare className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {/* Center: Brand Logo (3-klik otwiera konfigurację Telegrama dla właściciela) */}
+          {/* Left: Brand Logo */}
           <button
             onClick={() => {
               setLogoClicks(prev => {
@@ -103,14 +90,14 @@ export default function Header({
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }
             }}
-            className="flex items-center gap-1.5 sm:gap-2 group cursor-pointer text-left focus:outline-none"
+            className="flex items-center gap-2 group cursor-pointer text-left focus:outline-none"
             title="CzystoTruck Łódź"
           >
-            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-zinc-900 border border-amber-500/40 flex items-center justify-center group-hover:border-amber-400 transition-colors">
-              <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 stroke-[2]" />
+            <div className="w-7 h-7 rounded-lg bg-zinc-900 border border-amber-500/40 flex items-center justify-center group-hover:border-amber-400 transition-colors shrink-0">
+              <Truck className="w-4 h-4 text-amber-400 stroke-[2]" />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif tracking-[0.15em] sm:tracking-[0.25em] text-xs sm:text-base uppercase font-bold text-white group-hover:text-amber-300 transition-colors">
+              <span className="font-serif tracking-[0.18em] sm:tracking-[0.25em] text-sm sm:text-base uppercase font-bold text-white group-hover:text-amber-300 transition-colors">
                 {content.company.name}
               </span>
               <span className="hidden sm:inline text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-zinc-500 font-mono -mt-0.5">
@@ -119,12 +106,35 @@ export default function Header({
             </div>
           </button>
 
+          {/* Center (Desktop only): Quick contact & WhatsApp */}
+          <div className="hidden sm:flex items-center gap-2 sm:gap-3">
+            <a
+              href={`tel:${content.company.phoneRaw}`}
+              onClick={handleCallClick}
+              className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-xs text-zinc-300 hover:text-amber-400 transition-all duration-300"
+              title="Zadzwoń do nas"
+            >
+              <Phone className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
+              <span className="font-mono tracking-wider">{content.company.phone}</span>
+            </a>
+
+            <a
+              href={content.company.socials.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:flex p-1.5 rounded-full bg-white/[0.04] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-zinc-400 hover:text-emerald-400 transition-all duration-300"
+              title="Napisz na WhatsApp"
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
           {/* Right: Actions */}
-          <div className="flex items-center gap-1.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {isQuoteView ? (
               <button
                 onClick={onBackToHome}
-                className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs uppercase tracking-wider font-semibold bg-white/[0.08] hover:bg-white/[0.15] text-zinc-200 border border-white/15 hover:border-white/30 transition-all duration-300 cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-1.5 min-h-[38px] rounded-full text-[11px] sm:text-xs uppercase tracking-wider font-semibold bg-white/[0.08] hover:bg-white/[0.15] text-zinc-200 border border-white/15 hover:border-white/30 transition-all duration-300 cursor-pointer"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Strona Główna</span>
@@ -133,7 +143,7 @@ export default function Header({
             ) : (
               <button
                 onClick={onNavigateToQuote}
-                className="inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs uppercase tracking-wider font-semibold bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300 cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-1.5 min-h-[38px] rounded-full text-[11px] sm:text-xs uppercase tracking-wider font-semibold bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300 cursor-pointer"
               >
                 <span>Wycena</span>
                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -142,11 +152,11 @@ export default function Header({
 
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="group flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-[11px] sm:text-xs uppercase tracking-widest text-zinc-300 hover:text-white transition-all duration-300 cursor-pointer"
+              className="group flex items-center justify-center gap-1.5 px-3 sm:px-3 py-2 sm:py-1.5 min-h-[38px] rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-[11px] sm:text-xs uppercase tracking-widest text-zinc-300 hover:text-white transition-all duration-300 cursor-pointer"
               aria-label="Otwórz menu"
             >
               <span className="hidden xs:inline text-[10px] sm:text-[11px] font-mono">MENU</span>
-              <Menu className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 group-hover:rotate-90 transition-transform duration-300" />
+              <Menu className="w-4 h-4 text-amber-400 group-hover:rotate-90 transition-transform duration-300" />
             </button>
           </div>
 
@@ -172,7 +182,7 @@ export default function Header({
 
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
             aria-label="Zamknij menu"
           >
             <X className="w-6 h-6" />

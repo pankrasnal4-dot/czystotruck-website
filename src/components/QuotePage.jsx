@@ -165,15 +165,15 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
   };
 
   return (
-    <div className="min-h-screen bg-[#060608] text-zinc-100 pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-[#060608] text-zinc-100 pt-20 sm:pt-24 pb-16 sm:pb-20 px-3 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-amber-500/5 rounded-full blur-[180px] pointer-events-none -z-10" />
       <div className="absolute inset-0 bg-subtle-noise opacity-20 pointer-events-none" />
 
       <div className="max-w-3xl mx-auto">
         
-        {/* Top bar: Back to home */}
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
+        {/* Top bar: Back to home (widoczny na tabletach/desktopie; na mobile wracamy przez header) */}
+        <div className="hidden sm:flex items-center justify-between mb-8 pb-4 border-b border-white/10">
           <button
             onClick={onBack}
             className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-amber-400 transition-colors"
@@ -251,12 +251,12 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
           <div>
             
             {/* Header */}
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono uppercase tracking-wider mb-3">
+            <div className="text-center mb-6 sm:mb-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[11px] sm:text-xs font-mono uppercase tracking-wider mb-2 sm:mb-3">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Bezpieczna & Bezpłatna Wycena • Łódź</span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-5xl font-bold text-white tracking-tight mb-3">
+              <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-2 sm:mb-3">
                 WYCENA ODBIORU <span className="text-gold-gradient">MEBLI</span>
               </h1>
               <p className="text-xs sm:text-sm text-zinc-400 font-light max-w-lg mx-auto">
@@ -265,18 +265,18 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
             </div>
 
             {/* Step Progress Bar */}
-            <div className="grid grid-cols-3 gap-2 mb-8">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mb-6 sm:mb-8">
               {[
-                { num: 1, label: '1. Co wywozimy' },
-                { num: 2, label: '2. Warunki & Adres' },
-                { num: 3, label: '3. Telefon & Termin' },
+                { num: 1, label: '1. Meble' },
+                { num: 2, label: '2. Warunki' },
+                { num: 3, label: '3. Kontakt' },
               ].map((s) => {
                 const isActive = step === s.num;
                 const isCompleted = step > s.num;
                 return (
                   <div
                     key={s.num}
-                    className={`py-3 px-3 rounded-xl border text-center transition-all ${
+                    className={`py-2 px-1.5 sm:py-3 sm:px-3 rounded-xl border text-center transition-all text-[11px] sm:text-xs font-mono font-medium ${
                       isActive
                         ? 'bg-amber-500/15 border-amber-500/60 text-white shadow-md'
                         : isCompleted
@@ -284,16 +284,14 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
                         : 'bg-white/[0.02] border-white/5 text-zinc-500'
                     }`}
                   >
-                    <span className="block text-[11px] font-mono uppercase tracking-wider font-bold">
-                      {s.label}
-                    </span>
+                    <span>{s.label}</span>
                   </div>
                 );
               })}
             </div>
 
             {/* Form Card */}
-            <form onSubmit={handleSubmit} className="glass-panel p-6 sm:p-10 rounded-3xl border border-white/10 shadow-2xl">
+            <form onSubmit={handleSubmit} className="glass-panel p-4 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
               
               {/* STEP 1: CATEGORIES & DESCRIPTION */}
               {step === 1 && (
@@ -459,11 +457,11 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
                     </div>
                   </div>
 
-                  <div className="pt-4 flex items-center justify-between gap-4">
+                  <div className="pt-4 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 w-full">
                     <button
                       type="button"
                       onClick={handlePrev}
-                      className="px-6 py-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-zinc-300 font-mono text-xs uppercase tracking-wider transition-colors"
+                      className="w-full sm:w-auto px-6 py-3.5 sm:py-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-zinc-300 font-mono text-xs uppercase tracking-wider transition-colors text-center"
                     >
                       Wstecz
                     </button>
@@ -471,7 +469,7 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
                     <button
                       type="button"
                       onClick={handleNext}
-                      className="px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-2 shadow-lg shadow-amber-500/25"
+                      className="w-full sm:w-auto px-8 py-3.5 sm:py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25"
                     >
                       <span>Dalej: Kontakt i Termin</span>
                       <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -552,11 +550,11 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
                   </div>
 
                   {/* Submit Button */}
-                  <div className="pt-4 flex items-center justify-between gap-4">
+                  <div className="pt-4 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 w-full">
                     <button
                       type="button"
                       onClick={handlePrev}
-                      className="px-6 py-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-zinc-300 font-mono text-xs uppercase tracking-wider transition-colors"
+                      className="w-full sm:w-auto px-6 py-3.5 sm:py-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-zinc-300 font-mono text-xs uppercase tracking-wider transition-colors text-center"
                     >
                       Wstecz
                     </button>
@@ -564,7 +562,7 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
                     <button
                       type="submit"
                       disabled={isSending}
-                      className="flex-1 sm:flex-none px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(245,158,11,0.35)]"
+                      className="w-full sm:w-auto px-8 py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(245,158,11,0.35)]"
                     >
                       <Send className="w-4 h-4 stroke-[2.5]" />
                       <span>{isSending ? 'Przesyłanie zgłoszenia...' : 'Wyślij zgłoszenie do dyspozytora'}</span>

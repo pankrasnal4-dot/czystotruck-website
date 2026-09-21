@@ -153,8 +153,8 @@ export default function App() {
         </main>
       )}
 
-      {/* 4. Floating Mobile Quick Contact Bar */}
-      <MobileCallBar />
+      {/* 4. Floating Mobile Quick Contact Bar (tylko na stronie głównej, aby nie przysłaniać formularza wyceny) */}
+      {currentRoute === 'home' && <MobileCallBar />}
 
       {/* 5. Modals & Drawers */}
       <StoryDrawer
@@ -176,7 +176,7 @@ export default function App() {
       <CookieBanner onOpenTerms={() => setIsTermsOpen(true)} />
 
       {/* 404 Preview Shortcut */}
-      <div className="fixed bottom-2 right-2 opacity-20 hover:opacity-100 transition-opacity z-10 text-[9px] font-mono text-zinc-600">
+      <div className="hidden sm:block fixed bottom-2 right-2 opacity-20 hover:opacity-100 transition-opacity z-10 text-[9px] font-mono text-zinc-600">
         <button
           onClick={() => setShow404(true)}
           className="hover:text-amber-400 cursor-pointer"

@@ -182,13 +182,13 @@ export default function HeroSection({ isLoaded, onNavigateToQuote }) {
 
       {/* Bottom Row: 3 Highlight Stats & Scroll Indicator */}
       <div className="max-w-7xl mx-auto w-full pt-8 border-t border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6 z-10">
-        <div className="grid grid-cols-3 gap-4 sm:gap-8 w-full md:w-auto">
+        <div className="grid grid-cols-3 gap-2 sm:gap-8 w-full md:w-auto">
           {content.hero.stats.map((stat, i) => (
             <div key={i} className="flex flex-col">
-              <span className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              <span className="font-serif text-base sm:text-2xl md:text-3xl font-bold text-white tracking-tight">
                 {stat.value}
               </span>
-              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-zinc-400 mt-0.5">
+              <span className="text-[9px] sm:text-xs font-mono uppercase tracking-wider text-zinc-400 mt-0.5 leading-tight">
                 {stat.label}
               </span>
             </div>
