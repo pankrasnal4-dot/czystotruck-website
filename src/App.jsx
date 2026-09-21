@@ -1,3 +1,4 @@
+// TODO: dodać integrację z systemem płatności bezgotówkowych (BLIK/terminal)
 import React, { useState, useEffect } from 'react';
 import Preloader from './components/Preloader';
 import Header from './components/Header';
@@ -32,6 +33,14 @@ export default function App() {
     if (window.location.pathname === '/404') {
       setShow404(true);
     }
+    const checkHash = () => {
+      if (window.location.hash === '#admin' || window.location.hash === '#telegram') {
+        setIsTelegramOpen(true);
+      }
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
   }, []);
 
   const handleSelectService = (serviceName) => {

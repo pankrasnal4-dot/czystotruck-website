@@ -181,17 +181,10 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
             </button>
             <a
               href={`tel:${content.company.phoneRaw}`}
-              className="text-zinc-300 hover:text-amber-400"
+              className="text-zinc-300 hover:text-amber-400 font-mono"
             >
               {content.company.phone}
             </a>
-            {/* Discreet hidden owner config button (3-klik logo lub kropka) */}
-            <button
-              onClick={onOpenTelegramSettings}
-              className="w-2 h-2 rounded-full bg-zinc-800 hover:bg-amber-400 transition-colors"
-              title="Panel bota Telegram"
-              aria-label="Telegram Config"
-            />
           </div>
         </div>
 
