@@ -116,10 +116,11 @@ export default function ServicesSection({ onSelectService }) {
 
               <a
                 href={`tel:${content.company.phoneRaw}`}
-                className="px-6 py-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-zinc-300 hover:text-white text-xs uppercase tracking-wider font-mono transition-colors flex items-center gap-2"
+                className="px-6 py-4 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 hover:text-amber-200 text-xs uppercase tracking-wider font-mono transition-all flex items-center gap-2 cursor-pointer shadow-md hover:scale-[1.02] active:scale-95"
+                title={`Zadzwoń teraz: ${content.company.phone}`}
               >
-                <Phone className="w-3.5 h-3.5 text-amber-400" />
-                <span>{content.company.phone}</span>
+                <Phone className="w-4 h-4 fill-amber-400 text-amber-400" />
+                <span>Zadzwoń: {content.company.phone}</span>
               </a>
             </div>
 

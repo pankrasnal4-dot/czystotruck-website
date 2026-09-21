@@ -2,6 +2,7 @@ import React from 'react';
 import { MapPin, Phone } from 'lucide-react';
 import content from '../data/content.json';
 
+// NOTE: zlecenia powyżej 30 km od granic Łodzi wyceniane indywidualnie z dopłatą paliwową
 export default function DistrictsSection({ onSelectDistrict }) {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#09090c] border-t border-white/5 relative overflow-hidden">

@@ -23,9 +23,19 @@ export default function MarqueeSection() {
             key={index}
             className="inline-flex items-center gap-4 sm:gap-6 px-6 sm:px-8"
           >
-            <span className="font-serif text-lg sm:text-2xl md:text-3xl font-bold tracking-wider uppercase text-zinc-300 hover:text-amber-400 transition-colors">
-              {item}
-            </span>
+            {item.includes('+48') || item.includes('ZADZWOŃ') ? (
+              <a
+                href={`tel:${content.company.phoneRaw}`}
+                className="font-serif text-lg sm:text-2xl md:text-3xl font-bold tracking-wider uppercase text-amber-400 hover:text-amber-300 transition-colors underline decoration-amber-500/40 underline-offset-4 cursor-pointer"
+                title={`Zadzwoń: ${content.company.phone}`}
+              >
+                {item}
+              </a>
+            ) : (
+              <span className="font-serif text-lg sm:text-2xl md:text-3xl font-bold tracking-wider uppercase text-zinc-300 hover:text-amber-400 transition-colors">
+                {item}
+              </span>
+            )}
             <div className="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.8)] shrink-0" />
           </div>
         ))}

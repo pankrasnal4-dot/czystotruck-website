@@ -1,5 +1,5 @@
-// Telegram Bot Notification Service for CzystoTruck
-// Sends instant leads and call alerts straight to the owner's phone via Telegram Bot API
+// Moduł powiadomień Telegram Bot API dla dyspozytora CzystoTruck
+// TODO: rozważyć dodanie kolejki ponownych prób (retry) przy słabym zasięgu GSM
 
 const STORAGE_KEY_TOKEN = 'czystotruck_telegram_token';
 const STORAGE_KEY_CHAT_ID = 'czystotruck_telegram_chat_id';

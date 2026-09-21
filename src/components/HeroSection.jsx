@@ -5,6 +5,7 @@ import content from '../data/content.json';
 import { sendTelegramNotification, formatLeadMessage, formatCallClickMessage } from '../services/telegramService';
 
 export default function HeroSection({ isLoaded, incomingService }) {
+  // FIXME: rozważyć walidację prefiksów międzynarodowych jeśli pojawią się zapytania spoza PL
   const [selectedItems, setSelectedItems] = useState(['Kanapa / Rogówka']);
   const [selectedFloor, setSelectedFloor] = useState('Parter / Winda');
   const [description, setDescription] = useState('');
@@ -105,41 +106,34 @@ export default function HeroSection({ isLoaded, incomingService }) {
       id="hero"
       className="relative min-h-[100svh] w-full flex flex-col justify-between pt-28 pb-10 px-4 sm:px-6 lg:px-8 bg-[#060608] overflow-hidden"
     >
-      {/* Background ambient lighting and subtle grain */}
       <div className="absolute inset-0 bg-subtle-noise opacity-30 pointer-events-none" />
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 w-[600px] h-[500px] bg-amber-500/10 rounded-full blur-[160px] pointer-events-none -z-10" />
       <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-amber-600/5 rounded-full blur-[180px] pointer-events-none -z-10" />
 
-      {/* Main Grid: Left Typography + Right Interactive Quote Hub */}
       <div className="max-w-7xl mx-auto w-full my-auto z-10 py-6 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
         
-        {/* LEFT COLUMN: Editorial Typography & Brand Pitch */}
         <div className="lg:col-span-7 flex flex-col items-start">
           
-          {/* Top Pill with live local status */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-amber-500/30 text-amber-400 text-[11px] sm:text-xs font-mono tracking-widest uppercase mb-6 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
             {content.hero.badge}
           </div>
 
-          {/* Hero Headline (High contrast Cinzel Serif) */}
           <h1 className="font-serif text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[0.98] mb-6">
             <span className="block text-zinc-100">{content.hero.titleLine1}</span>
             <span className="block text-gold-gradient">{content.hero.titleLine2}</span>
             <span className="block text-zinc-400 font-light italic">{content.hero.titleLine3}</span>
           </h1>
 
-          {/* Description */}
           <p className="max-w-xl text-base sm:text-lg text-zinc-300 font-light leading-relaxed mb-8">
             {content.hero.subtitle}
           </p>
 
-          {/* Direct Instant Triggers */}
           <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-8">
             <a
               href={`tel:${content.company.phoneRaw}`}
               onClick={handlePhoneClick}
-              className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_0_30px_rgba(245,158,11,0.25)] hover:shadow-[0_0_40px_rgba(245,158,11,0.45)] hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_0_30px_rgba(245,158,11,0.25)] hover:shadow-[0_0_40px_rgba(245,158,11,0.45)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
               <Phone className="w-4 h-4 fill-zinc-950" />
               <span>Zadzwoń: {content.company.phone}</span>
@@ -149,14 +143,13 @@ export default function HeroSection({ isLoaded, incomingService }) {
               href={content.company.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/[0.04] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/40 text-zinc-200 hover:text-emerald-300 font-medium text-xs uppercase tracking-wider transition-all duration-300 backdrop-blur-sm"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/[0.04] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/40 text-zinc-200 hover:text-emerald-300 font-medium text-xs uppercase tracking-wider transition-all duration-300 backdrop-blur-sm cursor-pointer"
             >
               <MessageSquare className="w-4 h-4 text-emerald-400" />
               <span>Wycena ze zdjęć (WhatsApp)</span>
             </a>
           </div>
 
-          {/* Live Dispatch Indicator */}
           <div className="flex items-center gap-3 text-xs text-zinc-400 font-mono">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             <span>Ekipa dostępna dzisiaj w Łodzi: Bałuty, Widzew, Śródmieście</span>
@@ -164,11 +157,9 @@ export default function HeroSection({ isLoaded, incomingService }) {
 
         </div>
 
-        {/* RIGHT COLUMN: Interactive Live Quote & Dispatch Card (Fixes empty space!) */}
+        {/* Panel szybkiej wyceny */}
         <div className="lg:col-span-5 w-full">
           <div className="relative rounded-3xl p-6 sm:p-8 bg-[#0d0d12]/90 border border-amber-500/25 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl">
-            
-            {/* Ambient accent inside card */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
 
             <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10">

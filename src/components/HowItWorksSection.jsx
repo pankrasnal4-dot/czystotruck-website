@@ -41,6 +41,16 @@ export default function HowItWorksSection() {
                 <p className="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed">
                   {item.desc}
                 </p>
+
+                {idx === 0 && (
+                  <a
+                    href={`tel:${content.company.phoneRaw}`}
+                    className="inline-flex items-center gap-2 mt-4 px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-mono transition-colors"
+                  >
+                    <PhoneCall className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Zadzwoń: {content.company.phone}</span>
+                  </a>
+                )}
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/5 flex items-center gap-2 text-[11px] font-mono text-zinc-500">
