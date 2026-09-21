@@ -158,10 +158,10 @@ export default function QuotePage({ onBack, preselectedService, preselectedDistr
 
           <a
             href={`tel:${content.company.phoneRaw}`}
-            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-300 hover:text-amber-400 transition-colors"
+            className="group inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/[0.04] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-xs font-mono text-zinc-300 hover:text-amber-400 transition-all cursor-pointer"
           >
-            <Phone className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden sm:inline">Masz pilne pytanie?</span>
+            <Phone className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
+            <span className="hidden sm:inline text-zinc-400">Pilna sprawa lub wolisz porozmawiać?</span>
             <span className="text-amber-400 font-bold">{content.company.phone}</span>
           </a>
         </div>

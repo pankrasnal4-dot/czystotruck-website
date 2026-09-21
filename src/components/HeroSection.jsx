@@ -49,26 +49,35 @@ export default function HeroSection({ isLoaded, onNavigateToQuote }) {
             {content.hero.subtitle}
           </p>
 
-          {/* Primary Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full mb-8">
+          {/* Primary Action Row: Online Quote + Direct Phone Callout */}
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3.5 w-full mb-8">
             {/* 1. Navigate to dedicated /wycena subpage */}
             <button
               onClick={onNavigateToQuote}
-              className="group flex items-center justify-center gap-3 px-7 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:shadow-[0_0_45px_rgba(245,158,11,0.5)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              className="group flex items-center justify-center gap-3 px-7 py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:shadow-[0_0_45px_rgba(245,158,11,0.5)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer shrink-0"
             >
               <Sparkles className="w-4 h-4 fill-zinc-950" />
               <span>Darmowa Wycena Online</span>
               <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />
             </button>
 
-            {/* 2. Direct Click-to-Call Phone Button */}
+            {/* 2. Direct Click-to-Call with Conversational Message */}
             <a
               href={`tel:${content.company.phoneRaw}`}
               onClick={handlePhoneClick}
-              className="flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-white/[0.04] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-zinc-200 hover:text-amber-400 font-semibold text-xs uppercase tracking-wider transition-all duration-300 backdrop-blur-sm cursor-pointer"
+              className="group flex items-center gap-3 px-4 sm:px-5 py-3 rounded-2xl bg-white/[0.04] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 transition-all duration-300 backdrop-blur-sm cursor-pointer shrink-0"
             >
-              <Phone className="w-4 h-4 text-amber-400" />
-              <span>Zadzwoń: {content.company.phone}</span>
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-105 group-hover:bg-amber-500 group-hover:text-zinc-950 transition-all shrink-0">
+                <Phone className="w-4 h-4" />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] sm:text-[11px] text-zinc-400 font-mono tracking-wide leading-tight whitespace-nowrap">
+                  Pilna sprawa lub wolisz porozmawiać?
+                </span>
+                <span className="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 transition-colors font-mono whitespace-nowrap">
+                  Zadzwoń: {content.company.phone}
+                </span>
+              </div>
             </a>
 
             {/* 3. WhatsApp for Photo Quotes */}
@@ -76,12 +85,11 @@ export default function HeroSection({ isLoaded, onNavigateToQuote }) {
               href={content.company.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-white/[0.03] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-zinc-300 hover:text-emerald-300 font-medium text-xs uppercase tracking-wider transition-all duration-300 backdrop-blur-sm cursor-pointer"
+              className="flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-white/[0.03] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-zinc-300 hover:text-emerald-300 font-medium text-xs uppercase tracking-wider transition-all duration-300 backdrop-blur-sm cursor-pointer shrink-0"
               title="Wyślij zdjęcia mebli na WhatsApp"
             >
               <MessageSquare className="w-4 h-4 text-emerald-400" />
-              <span className="hidden xl:inline">Wycena ze zdjęć</span>
-              <span className="xl:hidden">WhatsApp</span>
+              <span>Wycena WhatsApp</span>
             </a>
           </div>
 
