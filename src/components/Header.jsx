@@ -103,7 +103,7 @@ export default function Header({ onOpenStory, onOpenTerms, onOpenTelegramSetting
           {/* Right: Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
             <button
-              onClick={() => scrollToSection('kontakt')}
+              onClick={() => scrollToSection('hero')}
               className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300"
             >
               Wycena

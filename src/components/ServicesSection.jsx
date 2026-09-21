@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, Check, Armchair, Home, Warehouse, Users, Phone } from 'lucide-react';
 import content from '../data/content.json';
+import piwnicaImg from '../assets/piwnica.jpg';
 
 const iconMap = {
   Armchair: Armchair,
@@ -9,10 +10,15 @@ const iconMap = {
   Users: Users,
 };
 
+const serviceImages = {
+  piwnice: piwnicaImg,
+};
+
 export default function ServicesSection({ onSelectService }) {
   const [activeTab, setActiveTab] = useState(0);
   const activeService = content.services[activeTab] || content.services[0];
   const IconComponent = iconMap[activeService.icon] || Armchair;
+  const currentImage = serviceImages[activeService.id] || activeService.image;
 
   return (
     <section id="uslugi" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#060608] relative overflow-hidden">
@@ -123,7 +129,7 @@ export default function ServicesSection({ onSelectService }) {
           <div className="lg:col-span-6 w-full">
             <div className="relative h-[320px] sm:h-[420px] rounded-2xl overflow-hidden bg-zinc-950 border border-white/10 shadow-2xl">
               <img
-                src={activeService.image}
+                src={currentImage}
                 alt={activeService.title}
                 className="w-full h-full object-cover"
                 loading="lazy"

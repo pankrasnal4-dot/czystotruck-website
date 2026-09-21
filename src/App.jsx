@@ -5,7 +5,6 @@ import HeroSection from './components/HeroSection';
 import MarqueeSection from './components/MarqueeSection';
 import HowItWorksSection from './components/HowItWorksSection';
 import ServicesSection from './components/ServicesSection';
-import FurnitureCalculator from './components/FurnitureCalculator';
 import ComparisonSection from './components/ComparisonSection';
 import DistrictsSection from './components/DistrictsSection';
 import ContactSection from './components/ContactSection';
@@ -37,17 +36,17 @@ export default function App() {
 
   const handleSelectService = (serviceName) => {
     setSelectedService(serviceName);
-    const contactEl = document.getElementById('kontakt');
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth' });
+    const heroEl = document.getElementById('hero');
+    if (heroEl) {
+      heroEl.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   const handleSelectDistrict = (districtName) => {
-    setSelectedService(`Wywóz mebli (${districtName})`);
-    const contactEl = document.getElementById('kontakt');
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth' });
+    setSelectedService(`Rejon: ${districtName}`);
+    const heroEl = document.getElementById('hero');
+    if (heroEl) {
+      heroEl.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -75,9 +74,10 @@ export default function App() {
         onOpenTelegramSettings={() => setIsTelegramOpen(true)}
       />
 
-      {/* 3. Hero Section (Split Layout: Editorial Serif + Interactive Hub on the right) */}
+      {/* 3. Hero Section (Unified Single Interactive Quote Hub) */}
       <HeroSection
         isLoaded={isLoaded}
+        incomingService={selectedService}
       />
 
       {/* 4. Horizontal Marquee Ticker */}
@@ -86,21 +86,17 @@ export default function App() {
       {/* 5. How It Works (3 Steps) */}
       <HowItWorksSection />
 
-      {/* 6. Services Section (Tabbed Editorial Showcase without scroll locks) */}
+      {/* 6. Services Section (Tabbed Editorial Showcase) */}
       <ServicesSection onSelectService={handleSelectService} />
 
-      {/* 7. Interactive Furniture Calculator (Immediate Telegram lead dispatch) */}
-      <FurnitureCalculator />
-
-      {/* 8. Comparison Section (CzystoTruck vs Others) */}
+      {/* 7. Comparison Section (CzystoTruck vs Others) */}
       <ComparisonSection />
 
-      {/* 9. Districts of Łódź */}
+      {/* 8. Districts of Łódź */}
       <DistrictsSection onSelectDistrict={handleSelectDistrict} />
 
-      {/* 10. Contact Section with Direct Call & Form */}
+      {/* 9. Contact Section with Direct Call & Standards (No duplicate forms) */}
       <ContactSection
-        selectedService={selectedService}
         onOpenTerms={() => setIsTermsOpen(true)}
         onOpenTelegramSettings={() => setIsTelegramOpen(true)}
       />

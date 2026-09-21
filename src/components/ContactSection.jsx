@@ -1,53 +1,9 @@
-import React, { useState } from 'react';
-import { Phone, MessageSquare, Send, CheckCircle2, ArrowUpRight, ShieldCheck, Clock, MapPin } from 'lucide-react';
-import confetti from 'canvas-confetti';
+import React from 'react';
+import { Phone, MessageSquare, ArrowUpRight, ShieldCheck, Clock, MapPin, Sparkles, ArrowUp } from 'lucide-react';
 import content from '../data/content.json';
-import { sendTelegramNotification, formatLeadMessage, formatCallClickMessage } from '../services/telegramService';
+import { sendTelegramNotification, formatCallClickMessage } from '../services/telegramService';
 
 export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) {
-  const [phone, setPhone] = useState('');
-  const [agreedToTerms, setAgreedToTerms] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleQuickCallback = async (e) => {
-    e.preventDefault();
-    if (!agreedToTerms) {
-      alert('Prosimy o zaakceptowanie regulaminu usług przed wysłaniem.');
-      return;
-    }
-
-    if (!phone || phone.length < 7) {
-      alert('Wpisz poprawny numer telefonu.');
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    const message = formatLeadMessage({
-      phone,
-      service: 'Prośba o szybki telefon z dołu strony',
-      floor: 'Do ustalenia podczas rozmowy',
-      items: 'Wycena telefoniczna',
-      description: 'Klient prosi o natychmiastowy kontakt telefoniczny',
-      source: 'Sekcja kontaktowa (Dół strony)',
-    });
-
-    await sendTelegramNotification(message);
-
-    setIsSubmitting(false);
-    setSubmitted(true);
-
-    try {
-      confetti({
-        particleCount: 50,
-        spread: 60,
-        origin: { y: 0.8 },
-        colors: ['#f59e0b', '#fbbf24', '#ffffff'],
-      });
-    } catch (err) {}
-  };
-
   const handlePhoneCallClick = () => {
     sendTelegramNotification(
       formatCallClickMessage({
@@ -55,6 +11,13 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
         source: 'Karta bezpośredniego połączenia (Dół strony)',
       })
     );
+  };
+
+  const scrollToHeroConfig = () => {
+    const heroEl = document.getElementById('hero');
+    if (heroEl) {
+      heroEl.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -79,7 +42,7 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
             </h2>
 
             <p className="text-sm sm:text-base text-zinc-300 font-light leading-relaxed mb-8 max-w-lg">
-              Nie trać czasu na dźwiganie ani niepewne ekipy. Zadzwoń bezpośrednio lub wyślij zdjęcia mebli na WhatsApp – podamy dokładną, stałą kwotę i przyjedziemy na umówioną godzinę.
+              Nie trać czasu na dźwiganie ani niepewne ogłoszenia. Zadzwoń bezpośrednio lub prześlij zdjęcia mebli na WhatsApp – podamy stałą cenę i przyjedziemy na umówioną godzinę.
             </p>
 
             {/* Direct Cards */}
@@ -144,89 +107,59 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
             </div>
           </div>
 
-          {/* Right Column: Clean Instant Callback Hub (No duplicate giant form!) */}
+          {/* Right Column: Clean Standards & Fast Configurator Jump (No duplicate phone form!) */}
           <div className="lg:col-span-5 w-full">
             <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl relative">
-              <div className="mb-6">
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-amber-400 block mb-1">
-                  Szybki Kontakt
-                </span>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
-                  Oddzwonimy do Ciebie
-                </h3>
-                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
-                  Zostaw numer telefonu – nasz kierowca w Łodzi oddzwoni z wyceną i wolnymi terminami.
-                </p>
+              
+              <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-amber-400 block mb-1">
+                    Kompleksowa Obsługa
+                  </span>
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
+                    Dlaczego CzystoTruck?
+                  </h3>
+                </div>
+                <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                  <Sparkles className="w-5 h-5" />
+                </div>
               </div>
 
-              {submitted ? (
-                <div className="py-8 text-center flex flex-col items-center">
-                  <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center mb-3">
-                    <CheckCircle2 className="w-7 h-7 text-emerald-400" />
-                  </div>
-                  <h4 className="font-serif text-lg font-bold text-white mb-1">
-                    Dziękujemy za kontakt!
-                  </h4>
-                  <p className="text-xs text-zinc-300 max-w-xs mb-4">
-                    Kierowca otrzymał powiadomienie na telefon. Oddzwaniamy pod numer <strong>{phone}</strong> w kilka minut.
+              <div className="space-y-4 text-xs text-zinc-300">
+                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                  <span className="font-bold text-white block mb-1 font-serif">1. Wycena z góry bez niespodzianek</span>
+                  <p className="text-zinc-400 leading-relaxed">
+                    Ustalamy kwotę przed przyjazdem na podstawie opisu lub zdjęć. Cena nie rośnie w trakcie załadunku.
                   </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="text-xs font-mono text-amber-400 underline"
-                  >
-                    Podaj inny numer
-                  </button>
                 </div>
-              ) : (
-                <form onSubmit={handleQuickCallback} className="space-y-4">
-                  <div>
-                    <label className="block text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-1.5">
-                      Twój numer telefonu:
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="np. 514 690 066"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="w-full px-4 py-3.5 rounded-xl bg-zinc-950 border border-white/15 focus:border-amber-400 focus:outline-none text-white text-sm font-mono placeholder:text-zinc-600 transition-colors"
-                    />
-                  </div>
 
-                  <label className="flex items-start gap-2.5 cursor-pointer text-xs text-zinc-400 pt-1">
-                    <input
-                      type="checkbox"
-                      checked={agreedToTerms}
-                      onChange={(e) => setAgreedToTerms(e.target.checked)}
-                      className="mt-0.5 rounded bg-zinc-900 border-white/20 text-amber-500 focus:ring-0"
-                    />
-                    <span>
-                      Akceptuję{' '}
-                      <button
-                        type="button"
-                        onClick={onOpenTerms}
-                        className="text-amber-400 hover:underline inline font-medium"
-                      >
-                        Regulamin Usług
-                      </button>{' '}
-                      CzystoTruck.
-                    </span>
-                  </label>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
-                  >
-                    <Send className="w-4 h-4 stroke-[2.5]" />
-                    <span>{isSubmitting ? 'Wysyłanie...' : 'Zadzwońcie do mnie'}</span>
-                  </button>
-
-                  <p className="text-center text-[10px] font-mono text-zinc-500">
-                    Oddzwaniamy zazwyczaj w ciągu 5 minut
+                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                  <span className="font-bold text-white block mb-1 font-serif">2. Własni tragarze i demontaż</span>
+                  <p className="text-zinc-400 leading-relaxed">
+                    Znosimy z każdego piętra (nawet 4. piętro w łódzkich kamienicach). Rozkręcamy szafy i narożniki na miejscu.
                   </p>
-                </form>
-              )}
+                </div>
+
+                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                  <span className="font-bold text-white block mb-1 font-serif">3. Czystość po skończonej pracy</span>
+                  <p className="text-zinc-400 leading-relaxed">
+                    Zamiatamy klatkę i miejsce postoju auta. Zostawiamy lokal przygotowany do remontu lub sprzedaży.
+                  </p>
+                </div>
+              </div>
+
+              {/* Fast Jump button to the main quote widget at the top */}
+              <div className="pt-6 mt-6 border-t border-white/10">
+                <button
+                  type="button"
+                  onClick={scrollToHeroConfig}
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
+                >
+                  <ArrowUp className="w-4 h-4 stroke-[2.5]" />
+                  <span>Skorzystaj z kalkulatora wyceny (Góra strony)</span>
+                </button>
+              </div>
+
             </div>
           </div>
 
@@ -252,12 +185,12 @@ export default function ContactSection({ onOpenTerms, onOpenTelegramSettings }) 
             >
               {content.company.phone}
             </a>
-            {/* Discreet hidden owner config button */}
+            {/* Discreet hidden owner config button (3-klik logo lub kropka) */}
             <button
               onClick={onOpenTelegramSettings}
               className="w-2 h-2 rounded-full bg-zinc-800 hover:bg-amber-400 transition-colors"
-              title="Panel administracyjny"
-              aria-label="Admin"
+              title="Panel bota Telegram"
+              aria-label="Telegram Config"
             />
           </div>
         </div>

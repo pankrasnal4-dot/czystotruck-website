@@ -4,13 +4,28 @@ import confetti from 'canvas-confetti';
 import content from '../data/content.json';
 import { sendTelegramNotification, formatLeadMessage, formatCallClickMessage } from '../services/telegramService';
 
-export default function HeroSection({ isLoaded }) {
+export default function HeroSection({ isLoaded, incomingService }) {
   const [selectedItems, setSelectedItems] = useState(['Kanapa / Rogówka']);
   const [selectedFloor, setSelectedFloor] = useState('Parter / Winda');
   const [description, setDescription] = useState('');
   const [phone, setPhone] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  React.useEffect(() => {
+    if (incomingService) {
+      if (incomingService.toLowerCase().includes('piwnic') || incomingService.toLowerCase().includes('garaż')) {
+        setSelectedItems(['Opróżnienie piwnicy/garażu']);
+      } else if (incomingService.toLowerCase().includes('mieszka')) {
+        setSelectedItems(['Likwidacja całego mieszkania']);
+      }
+      setDescription((prev) => {
+        if (!prev) return `Dotyczy: ${incomingService}`;
+        if (!prev.includes(incomingService)) return `${prev} | ${incomingService}`;
+        return prev;
+      });
+    }
+  }, [incomingService]);
 
   const quickItems = [
     { label: '🛋️ Kanapa / Rogówka', val: 'Kanapa / Rogówka' },
