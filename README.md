@@ -4,12 +4,13 @@ Strona internetowa firmy CzystoTruck świadczącej usługi wywozu starych mebli,
 
 ## Funkcjonalności
 
-- Responsywny układ dostosowany do urządzeń mobilnych i desktopowych
-- Interaktywny konfigurator szybkiej wyceny (wybór gabarytów, kondygnacji i opisu)
+- Responsywny układ zoptymalizowany pod smartfony (iPhone SE, iPhone 14/15, Android Pixel)
+- Dedykowana podstrona wyceny (`/wycena`) z 3-etapowym kreatorem pod kciuk
 - Samobieżny pasek informacyjny (marquee)
 - Bezpośrednia obsługa połączeń telefonicznych (`tel:`) oraz czatu WhatsApp
-- System powiadomień o nowych leadach przez Telegram Bot API
-- Tryb offline – możliwość uruchomienia strony bezpośrednio z pliku `CzystoTruck-Strona.html` bez środowiska Node.js
+- Bezpieczny system powiadomień o zleceniach przez Telegram Bot API dla właścicieli
+- Zautomatyzowane testy Playwright weryfikujące brak overflow (0px) na urządzeniach mobilnych
+- Tryb offline – możliwość uruchomienia strony bezpośrednio z pojedynczego pliku `CzystoTruck-Strona.html` bez środowiska Node.js
 
 ## Wymagania
 
