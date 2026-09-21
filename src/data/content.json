@@ -1,0 +1,228 @@
+{
+  "company": {
+    "name": "CzystoTruck",
+    "tagline": "Wywóz Mebli & Opróżnianie Mieszkań",
+    "city": "Łódź",
+    "region": "Łódź, Zgierz, Pabianice i okolice",
+    "phone": "+48 514 690 066",
+    "phoneRaw": "+48514690066",
+    "email": "kontakt@czystotruck.pl",
+    "hours": "Pn - Sb: 7:00 - 21:00 • Zlecenia pilne 24/7",
+    "socials": {
+      "facebook": "https://facebook.com",
+      "instagram": "https://instagram.com",
+      "whatsapp": "https://wa.me/48514690066?text=Dzie%C5%84%20dobry,%20chcia%C5%82bym%20wyceni%C4%87%20wyw%C3%B3z%20mebli%20w%20%C5%81odzi"
+    }
+  },
+  "telegram": {
+    "guideTitle": "Powiadomienia na Telegram w Twoim Telefonie",
+    "guideSteps": [
+      "1. W aplikacji Telegram wyszukaj bota @BotFather i wyślij komendę /newbot, aby utworzyć swojego prywatnego bota.",
+      "2. Skopiuj otrzymany Token (np. 123456789:ABCdef...).",
+      "3. Wyszukaj w Telegramie bota @userinfobot i kliknij Start – skopiuje Twoje numeryczne Chat ID.",
+      "4. Wklej oba parametry w okienku ustawień na stronie i kliknij 'Zapisz i Przetestuj'.",
+      "5. Gotowe! Każde zapytanie o wycenę i numer telefonu klienta ze strony pojawi się od razu jako powiadomienie na Twoim telefonie."
+    ]
+  },
+  "hero": {
+    "badge": "ŁÓDŹ & OKOLICE • EKSPRESOWY WYWÓZ MEBLI",
+    "titleLine1": "CZYSTOŚĆ.",
+    "titleLine2": "SPOKÓJ.",
+    "titleLine3": "BEZ DŹWIGANIA.",
+    "subtitle": "Zabieramy stare kanapy, szafy, meblościanki i opróżniamy całe lokale. Nasi tragarze wchodzą, demontują, znoszą z każdego piętra i zostawiają idealny porządek. Stała cena ustalona z góry.",
+    "stats": [
+      { "value": "100%", "label": "Gwarancja stałej ceny z góry" },
+      { "value": "Znoszenie", "label": "Z każdego piętra bez windy" },
+      { "value": "EKSPRESOWO", "label": "Szybki czas działania" }
+    ],
+    "quickSelectorTitle": "Szybka Wycena & Odbiór",
+    "quickSelectorSubtitle": "Wybierz co masz do wywiezienia – oddzwonimy z konkretną stawką w 5 minut:"
+  },
+  "howItWorks": [
+    {
+      "step": "01",
+      "title": "Zadzwoń lub wyślij zdjęcie",
+      "desc": "Opisujesz co masz do zabrania lub przesyłasz zdjęcie na WhatsApp / formularz. Podajemy dokładną, stałą cenę."
+    },
+    {
+      "step": "02",
+      "title": "Przyjeżdżamy i znosimy",
+      "desc": "Nasza 2-3 osobowa ekipa wchodzi do lokalu, bezpiecznie demontuje duże meble i znosi je do auta. Ty nie musisz niczego podnosić."
+    },
+    {
+      "step": "03",
+      "title": "Czysto i z głowy",
+      "desc": "Zamiatamy klatkę i miejsce po załadunku. Płacisz dokładnie tyle, ile ustaliśmy – gotówką, BLIK-iem lub przelewem."
+    }
+  ],
+  "services": [
+    {
+      "id": "meble",
+      "tag": "USŁUGA 01",
+      "title": "Wywóz Starych Mebli & Gabarytów",
+      "lead": "Kanapy, narożniki, szafy, meblościanki, łóżka, fotele i materace",
+      "description": "Nie męcz się z wynoszeniem ciężkich mebli na śmietnik ani nie ryzykuj mandatu. Przyjeżdżamy pod klatkę, demontujemy meble na części i znosimy bezpośrednio do naszego przestronnego auta meblowego.",
+      "features": [
+        "Własny załadunek i znoszenie z każdego piętra",
+        "Demontaż szaf, regałów i narożników na miejscu",
+        "Ochrona ościeżnic, ścian i wind przed porysowaniem"
+      ],
+      "icon": "Armchair",
+      "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      "id": "mieszkania",
+      "tag": "USŁUGA 02",
+      "title": "Kompleksowe Opróżnianie Mieszkań",
+      "lead": "Przygotowanie lokalu pod sprzedaż, wynajem lub remont",
+      "description": "Opróżniamy całe mieszkania, kamienice, domy i biura do gołych ścian. Usuwamy meble, dywany, sprzęty AGD/RTV, naczynia, karnisze oraz wszystkie nagromadzone przez lata przedmioty.",
+      "features": [
+        "Likwidacja mieszkań w 1 dzień",
+        "Czyszczenie lokali po poprzednich lokatorach lub spadkach",
+        "Pozostawiamy lokal zamieciony i gotowy do dalszych prac"
+      ],
+      "icon": "Home",
+      "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      "id": "piwnice",
+      "tag": "USŁUGA 03",
+      "title": "Opróżnianie Piwnic, Strychów i Garaży",
+      "lead": "Zalegające graty, kartony, stare wyposażenie i rupiecie",
+      "description": "Ciemne, ciasne i zagracone piwnice w łódzkich blokach i kamienicach to nasza codzienność. Wynosimy wszystko, czego chcesz się pozbyć – szybko, czysto i bez marudzenia.",
+      "features": [
+        "Opróżnianie komórek lokatorskich i schowków",
+        "Uporządkowanie zagraconych garaży i strychów",
+        "Możliwość zlecenia w weekendy i popołudniami"
+      ],
+      "icon": "Warehouse",
+      "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      "id": "tragarze",
+      "tag": "USŁUGA 04",
+      "title": "Własna Ekipa Tragarzy & Znoszenie",
+      "lead": "Młodzi, silni i kulturalni pracownicy z doświadczeniem",
+      "description": "4. piętro bez windy na Bałutach czy ciasna klatka w śródmiejskiej kamienicy? Żaden problem. Nasi tragarze mają profesjonalne pasy transportowe, wózki i umiejętności, by wynieść każdy gabaryt bez uszkodzeń.",
+      "features": [
+        "Doświadczona, trzeźwa i kulturalna ekipa",
+        "Profesjonalne pasy tragarzy i wózki schodowe",
+        "Szybkie tempo pracy bez niepotrzebnych przerw"
+      ],
+      "icon": "Users",
+      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+    }
+  ],
+  "marquee": {
+    "items": [
+      "WYWÓZ MEBLI ŁÓDŹ",
+      "OPRÓŻNIANIE MIESZKAŃ I DOMÓW",
+      "ZNOSZENIE Z KAŻDEGO PIĘTRA",
+      "STAŁA CENA BEZ NIESPODZIANEK",
+      "BAŁUTY • WIDZEW • POLESIE • GÓRNA • ŚRÓDMIEŚCIE",
+      "RETKINIA • TEOFILÓW • RADOGOSZCZ • CHOJNY",
+      "ZGIERZ • PABIANICE • ALEKSANDRÓW",
+      "ZADZWOŃ: +48 514 690 066"
+    ]
+  },
+  "calculator": {
+    "title": "Kalkulator Orientacyjny & Szybkie Zgłoszenie",
+    "subtitle": "Zaznacz co planujesz wywieźć – natychmiast wyślemy zgłoszenie z wyceną na telefon kierowcy:",
+    "items": [
+      { "id": "kanapa", "name": "Kanapa / Wersalka / Rogówka", "icon": "🛋️" },
+      { "id": "szafa", "name": "Szafa / Meblościanka", "icon": "🚪" },
+      { "id": "lozko", "name": "Łóżko + Materac", "icon": "🛏️" },
+      { "id": "stol", "name": "Stół + Krzesła / Biurko", "icon": "🪑" },
+      { "id": "agd", "name": "Pralka / Lodówka / AGD", "icon": "📦" },
+      { "id": "cale_mieszkanie", "name": "Całe Mieszkanie / Pokój", "icon": "🏠" },
+      { "id": "piwnica", "name": "Piwnica / Garaż / Graty", "icon": "🗝️" },
+      { "id": "inne", "name": "Inne gabaryty", "icon": "📋" }
+    ],
+    "floors": [
+      "Parter / Dom parterowy",
+      "Piętro 1 - 2 (z windą)",
+      "Piętro 1 - 2 (bez windy)",
+      "Piętro 3 - 4 (z windą)",
+      "Piętro 3 - 4 (bez windy - kamienica/blok)",
+      "Piętro 5+ (z windą)",
+      "Piwnica / Poddasze"
+    ]
+  },
+  "districts": [
+    "Śródmieście", "Bałuty", "Widzew", "Polesie", "Górna", "Retkinia",
+    "Teofilów", "Radogoszcz", "Chojny", "Dąbrowa", "Zgierz", "Pabianice", "Aleksandrów Łódzki", "Konstantynów Łódzki"
+  ],
+  "comparison": {
+    "title": "CzystoTruck vs Przypadkowe Ogłoszenia",
+    "subtitle": "Dlaczego mieszkańcy Łodzi wolą powierzyć wywóz mebli nam:",
+    "rows": [
+      {
+        "feature": "Gwarancja ceny",
+        "us": "Stała kwota ustalona przed startem prac, zero dopłat",
+        "others": "Cena 'rośnie' po załadowaniu pod pretekstem wagi lub korków"
+      },
+      {
+        "feature": "Dźwiganie i znoszenie",
+        "us": "Nasi tragarze robią wszystko – wchodzą, rozkręcają i znoszą",
+        "others": "Często wymagają pomocy właściciela lub dopłaty za każde piętro"
+      },
+      {
+        "feature": "Czystość klatki schodowej",
+        "us": "Dbamy o ściany, windę i zawsze zamiatamy po robocie",
+        "others": "Obite narożniki, porysowana winda i bałagan na klatce"
+      },
+      {
+        "feature": "Punktualność",
+        "us": "Umawiamy konkretną godzinę i jesteśmy na czas",
+        "others": "Przekładanie terminu lub brak kontaktu w dniu zlecenia"
+      }
+    ]
+  },
+  "story": {
+    "title": "O CzystoTruck",
+    "subtitle": "Uczciwy wywóz mebli bez stresu i dźwigania w Łodzi",
+    "paragraphs": [
+      "Firma CzystoTruck powstała w odpowiedzi na powszechny problem w Łodzi: niesłowne ekipy z ogłoszeń na słupach, które nie przyjeżdżają na umówioną godzinę albo po załadowaniu dwóch szaf żądają podwójnej stawki.",
+      "Zbudowaliśmy zaufaną markę opartą na prostych zasadach: mówimy ile kosztuje, przyjeżdżamy na czas, mamy własny sprawny zespół tragarzy i bierzemy cały fizyczny ciężar na siebie.",
+      "Niezależnie od tego, czy masz do oddania jedną starą kanapę z 4. piętra w kamienicy na Bałutach, czy likwidujesz 3-pokojowe mieszkanie na Widzewie – dzwonisz, ustalamy szczegóły i masz problem z głowy."
+    ],
+    "fleetDetails": [
+      { "label": "Przestrzeń meblowa", "value": "Pojemny kontener meblowy" },
+      { "label": "Winda załadunkowa", "value": "Hydrauliczna winda ułatwiająca załadunek" },
+      { "label": "Zabezpieczenie", "value": "Pasy, koce meblowe, wózki schodowe" },
+      { "label": "Ekipa", "value": "Tragarze w cenie usługi" }
+    ]
+  },
+  "terms": {
+    "title": "Regulamin i Zasady Świadczenia Usług CzystoTruck",
+    "lastUpdated": "Wrzesień 2026",
+    "sections": [
+      {
+        "title": "1. Zakres Usług",
+        "text": "Firma CzystoTruck świadczy usługi wywozu i utylizacji starych mebli, wyposażenia wnętrz, gabarytów oraz kompleksowego opróżniania lokali mieszkalnych, piwnic, strychów i garaży na terenie Łodzi oraz okolicznych miejscowości."
+      },
+      {
+        "title": "2. Wycena i Gwarancja Ceny",
+        "text": "Wycena zlecenia ustalana jest telefonicznie, przez komunikator WhatsApp lub formularz kontaktowy. Potwierdzona przez klienta kwota przed rozpoczęciem znoszenia jest ostateczna i nie ulega zmianie."
+      },
+      {
+        "title": "3. Obowiązki Klienta",
+        "text": "Klient zobowiązany jest do udostępnienia lokalu w umówionym terminie oraz opróżnienia wywożonych mebli z rzeczy osobistych, dokumentów i przedmiotów wartościowych."
+      },
+      {
+        "title": "4. Odpady Wyłączone",
+        "text": "CzystoTruck nie przyjmuje ani nie transportuje substancji niebezpiecznych, łatwopalnych, chemicznych, azbestu ani odpadów medycznych."
+      },
+      {
+        "title": "5. Płatności",
+        "text": "Płatność za usługę następuje po jej wykonaniu i zamieceniu terenu. Dopuszczalne formy to gotówka, szybki przelew BLIK lub przelew bankowy dla firm."
+      }
+    ]
+  },
+  "cookies": {
+    "title": "Prywatność i Ciasteczka",
+    "description": "Nasza strona wykorzystuje wyłącznie niezbędne pliki cookies do sprawnego działania strony oraz zapamiętania preferencji. Nie sprzedajemy danych ani nie śledzimy Cię na innych serwisach.",
+    "acceptButton": "Akceptuję",
+    "policyButton": "Regulamin"
+  }
+}
